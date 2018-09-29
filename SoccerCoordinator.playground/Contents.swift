@@ -149,6 +149,13 @@ for player in players {
 }
 
 
+// sort each player group by height
+
+let key = "height"
+let sortedExperienced = someExperience.sorted {($0[key] as! Int) < ($1[key] as! Int)}
+let sortedInexperienced = noExperience.sorted {($0[key] as! Int) < ($1[key] as! Int)}
+
+
 // initialize empty arrays for teams
 
 var teamSharks: [[String: Any]] = []
@@ -156,22 +163,55 @@ var teamDragons: [[String: Any]] = []
 var teamRaptors: [[String: Any]] = []
 
 
-// add player heights together
+// function to distribute experienced and inexperienced groups to teams based on height
 
-    var totalHeight = 0
+func dividePlayers(playerGroup: [[String: Any]]) {
 
-    for player in someExperience {
-        totalHeight += player["height"] as! Int
+    let total = playerGroup.count
+    let thirds = total / 3 // divide into thirds
+    
+    // establish ranges for height distribution
+    let firstRange = playerGroup[0..<(thirds)] // low range
+    let secondRange = playerGroup[thirds..<(thirds*2)] // medium range
+    let thirdRange = playerGroup[thirds*2..<(thirds*3)] // high range
+    
+    // distribute low height range across teams
+    for _ in 1..<firstRange.count-1 {
+        var i = 0
+        teamSharks.append(firstRange[i])
+        i += 1
+        teamDragons.append(firstRange[i])
+        i += 1
+        teamRaptors.append(firstRange[i])
+        i += 1
+    }
+    
+    // distribute medium height range across teams
+    for _ in 1..<secondRange.count-1 {
+        var i = thirds
+        teamSharks.append(secondRange[i])
+        i += 1
+        teamDragons.append(secondRange[i])
+        i += 1
+        teamRaptors.append(secondRange[i])
+        i += 1
     }
 
-    // calculate average height
+    // distribute high height range across teams
+    for _ in 1..<thirdRange.count-1 {
+        var i = thirdRange.count*thirds - 1
+        teamSharks.append(thirdRange[i])
+        i -= 1
+        teamDragons.append(thirdRange[i])
+        i -= 1
+        teamRaptors.append(thirdRange[i])
+        i -= 1
+    }
+}
 
-    let averageHeight = totalHeight / someExperience.count
+// call function to divide each group of players into teams
 
-
-
-
-
-
+dividePlayers(playerGroup: sortedInexperienced)
+dividePlayers(playerGroup: sortedExperienced)
 
 
