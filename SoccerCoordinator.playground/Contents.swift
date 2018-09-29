@@ -1,4 +1,4 @@
-// list of individual players, each in their own dictionary
+// list of player data in separate dictionaries
 
 let player1: [String: Any] = [
     "name": "Joe Smith",
@@ -127,7 +127,7 @@ let player18: [String: Any] = [
 ]
 
 
-// array with all league players listed
+// array with all league players added
 
 let players: [[String: Any]] = [player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, player12, player13, player14, player15, player16, player17, player18]
 
@@ -149,7 +149,7 @@ for player in players {
 }
 
 
-// sort each player group by height
+// sort each player group by height, ascending
 
 let key = "height"
 let sortedExperienced = someExperience.sorted {($0[key] as! Int) < ($1[key] as! Int)}
@@ -168,7 +168,7 @@ var teamRaptors: [[String: Any]] = []
 func dividePlayers(playerGroup: [[String: Any]]) {
 
     let total = playerGroup.count
-    let thirds = total / 3 // divide into thirds
+    let thirds = total / 3 // compute how many players fit in each of the three teams
     
     // establish ranges for height distribution
     let firstRange = playerGroup[0..<(thirds)] // low range
@@ -209,9 +209,36 @@ func dividePlayers(playerGroup: [[String: Any]]) {
     }
 }
 
+
 // call function to divide each group of players into teams
 
 dividePlayers(playerGroup: sortedInexperienced)
 dividePlayers(playerGroup: sortedExperienced)
+
+
+// iterate through players and create letters
+
+var letters: [String] = [] // empty array to hold letters
+
+
+// reusable function to generate letters with team and date inputs
+func createLetters(team: [[String: Any]], teamName: String, practiceDate: String) {
+    
+    for player in team {
+        let guardians = player["guardians"] as! String // cast to string to prevent optional
+        let name = player["name"] as! String // cast to string to prevent optional
+        
+        let letter = "Dear \(guardians), your child, \(name), has been placed on the \(teamName) team for the soccor league. The \(teamName) have practice set for \(practiceDate), so please be certain that your child attends, has the proper equipment, and brings along lots of energy. It is very important that \(name) attend the practice, so be sure to mark the date and time on your calendars! We look forward to seeing you there!"
+        letters.append(letter)
+    }
+}
+
+// call function to create letters
+
+createLetters(team: teamRaptors, teamName: "Raptors", practiceDate: "March 18, 1pm")
+createLetters(team: teamDragons, teamName: "Dragons", practiceDate: "March 17, 1pm")
+createLetters(team: teamSharks, teamName: "Sharks", practiceDate: "March 17, 3pm")
+
+print(letters) // output to console
 
 
