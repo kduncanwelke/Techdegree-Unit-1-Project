@@ -2,126 +2,126 @@
 
 let player1: [String: Any] = [
     "name": "Joe Smith",
-    "height": 42,
+    "height": 42.0,
     "experience": true,
     "guardians": "Jim and Jan Smith"
 ]
 
 let player2: [String: Any] = [
     "name": "Jill Tanner",
-    "height": 36,
+    "height": 36.0,
     "experience": true,
     "guardians": "Clara Tanner"
 ]
 
 let player3: [String: Any] = [
     "name": "Bill Bon",
-    "height": 43,
+    "height": 43.0,
     "experience": true,
     "guardians": "Sara and Jenny Bon"
 ]
 
 let player4: [String: Any] = [
     "name": "Eva Gordon",
-    "height": 45,
+    "height": 45.0,
     "experience": false,
     "guardians": "Wendy and Mike Gordon"
 ]
 
 let player5: [String: Any] = [
     "name": "Matt Gill",
-    "height": 40,
+    "height": 40.0,
     "experience": false,
     "guardians": "Charles and Sylvia Gill"
 ]
 
 let player6: [String: Any] = [
     "name": "Kimmy Stein",
-    "height": 41,
+    "height": 41.0,
     "experience": false,
     "guardians": "Bill and Hillary Stein"
 ]
 
 let player7: [String: Any] = [
     "name": "Sammy Adams",
-    "height": 45,
+    "height": 45.0,
     "experience": false,
     "guardians": "Jeff Adams"
 ]
 
 let player8: [String: Any] = [
     "name":  "Karl Saygan",
-    "height": 42,
+    "height": 42.0,
     "experience": true,
     "guardians": "Heather Bledsoe"
 ]
 
 let player9: [String: Any] = [
     "name": "Suzane Greenberg",
-    "height": 44,
+    "height": 44.0,
     "experience": true,
     "guardians": "Henrietta Dumas"
 ]
 
 let player10: [String: Any] = [
     "name": "Sal Dali",
-    "height": 41,
+    "height": 41.0,
     "experience": false,
     "guardians": "Gala Dali"
 ]
 
 let player11: [String: Any] = [
     "name": "Joe Kavalier",
-    "height": 39,
+    "height": 39.0,
     "experience": false,
     "guardians": "Sam and Elaine Kavalier"
 ]
 
 let player12: [String: Any] = [
     "name": "Ben Finkelstein",
-    "height": 44,
+    "height": 44.0,
     "experience": false,
     "guardians": "Aaron and Jill Finkelstein"
 ]
 
 let player13: [String: Any] = [
     "name": "Diego Soto",
-    "height": 41,
+    "height": 41.0,
     "experience": true,
     "guardians": "Robin and Sarika Soto"
 ]
 
 let player14: [String: Any] = [
     "name": "Chloe Alaska",
-    "height": 47,
+    "height": 47.0,
     "experience": false,
     "guardians": "David and Jamie Alaska"
 ]
 
 let player15: [String: Any] = [
     "name": "Arnold Willis",
-    "height": 43,
+    "height": 43.0,
     "experience": false,
     "guardians": "Claire Willis"
 ]
 
 let player16: [String: Any] = [
     "name": "Phillip Helm",
-    "height": 44,
+    "height": 44.0,
     "experience": true,
     "guardians": "Thomas Helm and Eva Jones"
 ]
 
 let player17: [String: Any] = [
     "name": "Les Clay",
-    "height": 42,
+    "height": 42.0,
     "experience": true,
     "guardians": "Wynonna Brown"
 ]
 
 let player18: [String: Any] = [
     "name": "Herschel Krustofski",
-    "height": 45,
+    "height": 45.0,
     "experience": true,
     "guardians": "Hyman and Rachel Krustofski"
 ]
@@ -152,8 +152,8 @@ for player in players {
 // sort each player group by height, ascending
 
 let key = "height"
-let sortedExperienced = someExperience.sorted {($0[key] as! Int) < ($1[key] as! Int)}
-let sortedInexperienced = noExperience.sorted {($0[key] as! Int) < ($1[key] as! Int)}
+let sortedExperienced = someExperience.sorted {($0[key] as! Double) < ($1[key] as! Double)}
+let sortedInexperienced = noExperience.sorted {($0[key] as! Double) < ($1[key] as! Double)}
 
 
 // initialize empty arrays for teams
@@ -216,6 +216,28 @@ dividePlayers(playerGroup: sortedInexperienced)
 dividePlayers(playerGroup: sortedExperienced)
 
 
+// function to compute average height per team
+func averageHeight(for team: [[String: Any]]) -> Double {
+    var totalHeight: Double = 0
+    
+    for player in team {
+        totalHeight += player["height"] as! Double
+    }
+    
+    let teamCount = Double(team.count)
+    
+    let averageHeight = totalHeight / teamCount
+    return averageHeight
+}
+
+// call functions for average team height and assign to variables
+let teamRaptorsAverageHeight = averageHeight(for: teamRaptors)
+let teamDragonsAverageHeight = averageHeight(for: teamDragons)
+let teamSharksAverageHeight = averageHeight(for: teamSharks)
+
+print("Raptors average height: \(teamRaptorsAverageHeight) \nDragons average height: \(teamDragonsAverageHeight) \nSharks average height: \(teamSharksAverageHeight) \n")
+
+
 // iterate through players and create letters
 
 var letters: [String] = [] // empty array to hold letters
@@ -228,7 +250,7 @@ func createLetters(team: [[String: Any]], teamName: String, practiceDate: String
         let guardians = player["guardians"] as! String // cast to string to prevent optional
         let name = player["name"] as! String // cast to string to prevent optional
         
-        let letter = "Dear \(guardians), your child, \(name), has been placed on the \(teamName) team for the soccor league. The \(teamName) have practice set for \(practiceDate), so please be certain that your child attends, has the proper equipment, and brings along lots of energy. It is very important that \(name) attend the practice, so be sure to mark the date and time on your calendars! We look forward to seeing you there!"
+        let letter = "Dear \(guardians), \nYour child, \(name), has been placed on the \(teamName) team for the soccor league. The \(teamName) have their first practice set for \(practiceDate), so please be certain that your child attends, has the proper equipment, and brings along lots of energy. It is very important that \(name) attend the practice, so be sure to mark the date and time on your calendars! \nWe look forward to seeing you there!\n"
         letters.append(letter)
     }
 }
@@ -239,6 +261,11 @@ createLetters(team: teamRaptors, teamName: "Raptors", practiceDate: "March 18, 1
 createLetters(team: teamDragons, teamName: "Dragons", practiceDate: "March 17, 1pm")
 createLetters(team: teamSharks, teamName: "Sharks", practiceDate: "March 17, 3pm")
 
-print(letters) // output to console
+
+// output to console
+for letter in letters {
+    print(letter)
+}
+
 
 
