@@ -1,159 +1,174 @@
 // list of player data in separate dictionaries
+let name = "name"
+let height = "height"
+let experience = "experience"
+let guardians = "guardians"
 
-let player1: [String: Any] = [
-    "name": "Joe Smith",
-    "height": 42.0,
-    "experience": true,
-    "guardians": "Jim and Jan Smith"
+let players: [[String: String]] = [
+    [
+        name: "Joe Smith",
+        height: "42.0",
+        experience: "true",
+        guardians: "Jim and Jan Smith"
+    ],
+
+    [
+        name: "Jill Tanner",
+        height: "36.0",
+        experience: "true",
+        guardians: "Clara Tanner"
+    ],
+
+    [
+        name: "Bill Bon",
+        height: "43.0",
+        experience: "true",
+        guardians: "Sara and Jenny Bon"
+    ],
+
+    [
+        name: "Eva Gordon",
+        height: "45.0",
+        experience: "false",
+        guardians: "Wendy and Mike Gordon"
+    ],
+
+    [
+        name: "Matt Gill",
+        height: "40.0",
+        experience: "false",
+        guardians: "Charles and Sylvia Gill"
+    ],
+
+    [
+        name: "Kimmy Stein",
+        height: "41.0",
+        experience: "false",
+        guardians: "Bill and Hillary Stein"
+    ],
+
+    [
+        name: "Sammy Adams",
+        height: "45.0",
+        experience: "false",
+        guardians: "Jeff Adams"
+    ],
+
+    [
+        name:  "Karl Saygan",
+        height: "42.0",
+        experience: "true",
+        guardians: "Heather Bledsoe"
+    ],
+
+    [
+        name: "Suzane Greenberg",
+        height: "44.0",
+        experience: "true",
+        guardians: "Henrietta Dumas"
+    ],
+
+    [
+        name: "Sal Dali",
+        height: "41.0",
+        experience: "false",
+        guardians: "Gala Dali"
+    ],
+
+    [
+        name: "Joe Kavalier",
+        height: "39.0",
+        experience: "false",
+        guardians: "Sam and Elaine Kavalier"
+    ],
+
+    [
+        name: "Ben Finkelstein",
+        height: "44.0",
+        experience: "false",
+        guardians: "Aaron and Jill Finkelstein"
+    ],
+
+    [
+        name: "Diego Soto",
+        height: "41.0",
+        experience: "true",
+        guardians: "Robin and Sarika Soto"
+    ],
+
+    [
+        name: "Chloe Alaska",
+        height: "47.0",
+        experience: "false",
+        guardians: "David and Jamie Alaska"
+    ],
+
+    [
+        name: "Arnold Willis",
+        height: "43.0",
+        experience: "false",
+        guardians: "Claire Willis"
+    ],
+
+    [
+        name: "Phillip Helm",
+        height: "44.0",
+        experience: "true",
+        guardians: "Thomas Helm and Eva Jones"
+    ],
+
+    [
+        name: "Les Clay",
+        height: "42.0",
+        experience: "true",
+        guardians: "Wynonna Brown"
+    ],
+
+    [
+        name: "Herschel Krustofski",
+        height: "45.0",
+        experience: "true",
+        guardians: "Hyman and Rachel Krustofski"
+    ]
 ]
-
-let player2: [String: Any] = [
-    "name": "Jill Tanner",
-    "height": 36.0,
-    "experience": true,
-    "guardians": "Clara Tanner"
-]
-
-let player3: [String: Any] = [
-    "name": "Bill Bon",
-    "height": 43.0,
-    "experience": true,
-    "guardians": "Sara and Jenny Bon"
-]
-
-let player4: [String: Any] = [
-    "name": "Eva Gordon",
-    "height": 45.0,
-    "experience": false,
-    "guardians": "Wendy and Mike Gordon"
-]
-
-let player5: [String: Any] = [
-    "name": "Matt Gill",
-    "height": 40.0,
-    "experience": false,
-    "guardians": "Charles and Sylvia Gill"
-]
-
-let player6: [String: Any] = [
-    "name": "Kimmy Stein",
-    "height": 41.0,
-    "experience": false,
-    "guardians": "Bill and Hillary Stein"
-]
-
-let player7: [String: Any] = [
-    "name": "Sammy Adams",
-    "height": 45.0,
-    "experience": false,
-    "guardians": "Jeff Adams"
-]
-
-let player8: [String: Any] = [
-    "name":  "Karl Saygan",
-    "height": 42.0,
-    "experience": true,
-    "guardians": "Heather Bledsoe"
-]
-
-let player9: [String: Any] = [
-    "name": "Suzane Greenberg",
-    "height": 44.0,
-    "experience": true,
-    "guardians": "Henrietta Dumas"
-]
-
-let player10: [String: Any] = [
-    "name": "Sal Dali",
-    "height": 41.0,
-    "experience": false,
-    "guardians": "Gala Dali"
-]
-
-let player11: [String: Any] = [
-    "name": "Joe Kavalier",
-    "height": 39.0,
-    "experience": false,
-    "guardians": "Sam and Elaine Kavalier"
-]
-
-let player12: [String: Any] = [
-    "name": "Ben Finkelstein",
-    "height": 44.0,
-    "experience": false,
-    "guardians": "Aaron and Jill Finkelstein"
-]
-
-let player13: [String: Any] = [
-    "name": "Diego Soto",
-    "height": 41.0,
-    "experience": true,
-    "guardians": "Robin and Sarika Soto"
-]
-
-let player14: [String: Any] = [
-    "name": "Chloe Alaska",
-    "height": 47.0,
-    "experience": false,
-    "guardians": "David and Jamie Alaska"
-]
-
-let player15: [String: Any] = [
-    "name": "Arnold Willis",
-    "height": 43.0,
-    "experience": false,
-    "guardians": "Claire Willis"
-]
-
-let player16: [String: Any] = [
-    "name": "Phillip Helm",
-    "height": 44.0,
-    "experience": true,
-    "guardians": "Thomas Helm and Eva Jones"
-]
-
-let player17: [String: Any] = [
-    "name": "Les Clay",
-    "height": 42.0,
-    "experience": true,
-    "guardians": "Wynonna Brown"
-]
-
-let player18: [String: Any] = [
-    "name": "Herschel Krustofski",
-    "height": 45.0,
-    "experience": true,
-    "guardians": "Hyman and Rachel Krustofski"
-]
-
-
-// array with all league players added
-
-let players: [[String: Any]] = [player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, player12, player13, player14, player15, player16, player17, player18]
 
 
 // initialize empty arrays to hold players when sorted by experience
 
-var someExperience: [[String: Any]] = []
-var noExperience: [[String: Any]] = []
+var someExperience: [[String: String]] = []
+var noExperience: [[String: String]] = []
 
 
 // loop to iterate through players and sort by experience
 
 for player in players {
-    if player["experience"] as! Bool == true {
-        someExperience.append(player)
-    } else {
-        noExperience.append(player)
+        if let playerExperience = player[experience], let boolExp = Bool(playerExperience) {
+        if boolExp == true {
+            someExperience.append(player)
+        } else {
+            noExperience.append(player)
+        }
     }
 }
 
 
 // sort each player group by height, ascending
 
-let key = "height"
-let sortedExperienced = someExperience.sorted {($0[key] as! Double) < ($1[key] as! Double)}
-let sortedInexperienced = noExperience.sorted {($0[key] as! Double) < ($1[key] as! Double)}
+let sortedExperienced = someExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
+    guard let leftHeight = left[height], let doubledLeft = Double(leftHeight), let rightHeight = right[height], let doubledRight = Double(rightHeight) else {
+        return false }
+        return doubledLeft < doubledRight
+    }
+
+let sortedInexperienced = someExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
+    guard let leftHeight = left[height], let doubledLeft = Double(leftHeight), let rightHeight = right[height], let doubledRight = Double(rightHeight) else {
+        return false }
+    return doubledLeft < doubledRight
+}
+
+
+//let sortedExperienced = someExperience.sorted {($0[height] as? Double) < ($1[height] as? Double)}
+//let sortedInexperienced = noExperience.sorted {($0[height] as? Double) < ($1[height] as? Double)}
 
 
 // initialize empty arrays for teams
@@ -170,7 +185,7 @@ func dividePlayers(playerGroup: [[String: Any]]) {
     let total = playerGroup.count
     let thirds = total / 3 // compute how many players fit in each of the three teams
     
-    // establish ranges for height distribution
+    // establish ranges for height distribution, divide low-high sorted group into thirds
     let firstRange = playerGroup[0..<(thirds)] // low range
     let secondRange = playerGroup[thirds..<(thirds*2)] // medium range
     let thirdRange = playerGroup[thirds*2..<(thirds*3)] // high range
@@ -221,7 +236,9 @@ func averageHeight(for team: [[String: Any]]) -> Double {
     var totalHeight: Double = 0
     
     for player in team {
-        totalHeight += player["height"] as! Double
+        if let playerHeight = player[height] as? Double {
+        totalHeight += playerHeight
+        }
     }
     
     let teamCount = Double(team.count)
@@ -247,11 +264,10 @@ var letters: [String] = [] // empty array to hold letters
 func createLetters(team: [[String: Any]], teamName: String, practiceDate: String) {
     
     for player in team {
-        let guardians = player["guardians"] as! String // cast to string to prevent optional
-        let name = player["name"] as! String // cast to string to prevent optional
-        
-        let letter = "Dear \(guardians), \nYour child, \(name), has been placed on the \(teamName) team for the soccor league. The \(teamName) have their first practice set for \(practiceDate), so please be certain that your child attends, has the proper equipment, and brings along lots of energy. It is very important that \(name) attend the practice, so be sure to mark the date and time on your calendars! \nWe look forward to seeing you there!\n"
+        if let playerGuardian = player[guardians], let playerName = player[name] {
+        let letter = "Dear \(playerGuardian), \nYour child, \(playerName), has been placed on the \(teamName) team for the soccor league. The \(teamName) have their first practice set for \(practiceDate), so please be certain that your child attends, has the proper equipment, and brings along lots of energy. It is very important that \(name) attend the practice, so be sure to mark the date and time on your calendars! \nWe look forward to seeing you there!\n"
         letters.append(letter)
+        }
     }
 }
 
