@@ -152,12 +152,13 @@ for player in players {
 }
 
 
-// sort each player group by height, descending, in preparation for height distribution
+// sort each player group by height, one ascending and one descending, in preparation for height distribution
+// this way the shortest and highest heights should end up on the same teams
 
 var sortedExperienced = someExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
     guard let leftHeight = left[height], let doubledLeft = Double(leftHeight), let rightHeight = right[height], let doubledRight = Double(rightHeight) else {
         return false }
-        return doubledLeft > doubledRight
+        return doubledLeft < doubledRight
     }
 
 var sortedInexperienced = noExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
@@ -173,24 +174,27 @@ var teamSharks: [[String: String]] = []
 var teamDragons: [[String: String]] = []
 var teamRaptors: [[String: String]] = []
 
+
+// put teams in array to prepare for distribution
+
 var leagueTeams = [teamSharks, teamDragons, teamRaptors]
 
 
-// function to distribute experienced and inexperienced groups to teams (which were sorted by height descending)
+// function to distribute experienced and inexperienced groups to teams (which were previously sorted by height)
 
 func dividePlayers(playerGroup: [[String: String]], teams: [[[String: String]]]) {
     
-    var mutableTeams = teams
-    var mutableGroup = playerGroup
+    var mutableTeams = teams // copy let from loop to variable
+    var mutableGroup = playerGroup // copy let from loop to variable
     
-    while mutableGroup.isEmpty == false {
+    while mutableGroup.isEmpty == false { // proceed while playerGroup isn't empty
         for i in 0..<mutableTeams.count { // iterate through array of teams to assign players in sequence
-            mutableTeams[i].append(mutableGroup[0]) // assign value from array
-            mutableGroup.remove(at: 0) // then remove value
+            mutableTeams[i].append(mutableGroup[0]) // assign value to team from playerGroup array
+            mutableGroup.remove(at: 0) // then remove value from playerGroup
         }
     }
     
-    teamSharks += mutableTeams[0]
+    teamSharks += mutableTeams[0] // add players to teams
     teamDragons += mutableTeams[1]
     teamRaptors += mutableTeams[2]
 }
@@ -203,11 +207,12 @@ dividePlayers(playerGroup: sortedExperienced, teams: leagueTeams)
 
 
 // function to compute average height per team
+
 func averageHeight(for team: [[String: String]]) -> Double {
     var totalHeight: Double = 0
     
     for player in team {
-        if let playerHeight = player[height], let doublePlayerHeight = Double(playerHeight) {
+        if let playerHeight = player[height], let doublePlayerHeight = Double(playerHeight) { // prevent optional and cast type
         totalHeight += doublePlayerHeight // add all player heights together
         }
     }
@@ -220,9 +225,13 @@ func averageHeight(for team: [[String: String]]) -> Double {
 
 
 // call functions for average team height and assign to variables
+
 let teamRaptorsAverageHeight = averageHeight(for: teamRaptors)
 let teamDragonsAverageHeight = averageHeight(for: teamDragons)
 let teamSharksAverageHeight = averageHeight(for: teamSharks)
+
+
+// print heights to console
 
 print("Raptors average height: \(teamRaptorsAverageHeight) \nDragons average height: \(teamDragonsAverageHeight) \nSharks average height: \(teamSharksAverageHeight) \n")
 
@@ -237,7 +246,7 @@ func createLetters(team: [[String: String]], teamName: String, practiceDate: Str
     
     for player in team {
         if let playerGuardian = player[guardians], let playerName = player[name] {
-        let letter = "Dear \(playerGuardian), \nYour child, \(playerName), has been placed on the \(teamName) team for the soccor league. The \(teamName) have their first practice set for \(practiceDate), so please be certain that your child attends, has the proper equipment, and brings along lots of energy. It is very important that \(name) attend the practice, so be sure to mark the date and time on your calendars! \nWe look forward to seeing you there!\n"
+        let letter = "Dear \(playerGuardian), \n\nYour child, \(playerName), has been placed on the \(teamName) team for the soccer league. The \(teamName) have their first practice set for \(practiceDate), so please be certain that your child attends, has the proper equipment, and brings along lots of energy. It is very important that \(playerName) attend the practice, so be sure to mark the date and time on your calendars! \n\nWe look forward to seeing you there!\n"
         letters.append(letter)
         }
     }   
@@ -250,7 +259,7 @@ createLetters(team: teamDragons, teamName: "Dragons", practiceDate: "March 17, 1
 createLetters(team: teamSharks, teamName: "Sharks", practiceDate: "March 17, 3pm")
 
 
-// output to console
+// output letters to console
 for letter in letters {
     print(letter)
 }
