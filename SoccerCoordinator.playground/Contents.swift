@@ -152,108 +152,63 @@ for player in players {
 }
 
 
-// sort each player group by height, ascending, in preparation for height distribution
+// sort each player group by height, descending, in preparation for height distribution
 
-let sortedExperienced = someExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
+var sortedExperienced = someExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
     guard let leftHeight = left[height], let doubledLeft = Double(leftHeight), let rightHeight = right[height], let doubledRight = Double(rightHeight) else {
         return false }
-        return doubledLeft < doubledRight
+        return doubledLeft > doubledRight
     }
 
-let sortedInexperienced = someExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
+var sortedInexperienced = noExperience.sorted {(left: [String: String], right: [String: String]) -> Bool in
     guard let leftHeight = left[height], let doubledLeft = Double(leftHeight), let rightHeight = right[height], let doubledRight = Double(rightHeight) else {
         return false }
-    return doubledLeft < doubledRight
+    return doubledLeft > doubledRight
 }
 
 
 // initialize empty arrays for teams
 
-var teamSharks: [[String: Any]] = []
-var teamDragons: [[String: Any]] = []
-var teamRaptors: [[String: Any]] = []
+var teamSharks: [[String: String]] = []
+var teamDragons: [[String: String]] = []
+var teamRaptors: [[String: String]] = []
+
+var leagueTeams = [teamSharks, teamDragons, teamRaptors]
 
 
-// function to distribute experienced and inexperienced groups to teams based on height
+// function to distribute experienced and inexperienced groups to teams (which were sorted by height descending)
 
-func dividePlayers(playerGroup: [[String: Any]]) {
-
-    let total = playerGroup.count // get total of players
-    let thirds = total / 3 // determine how many players will fit into each team (size of a third)
+func dividePlayers(playerGroup: [[String: String]], teams: [[[String: String]]]) {
     
-    /* establish ranges for height distribution
-       divide groups of players (which were sorted previously from low to high height)
-       into three height ranges - low, medium, and high, using calculated size of a third to break them up evenly */
-    let firstThird = thirds
-    let secondThird = thirds * 2
-    let thirdThird = thirds * 3
+    var mutableTeams = teams
+    var mutableGroup = playerGroup
     
-    let firstRange = playerGroup[0..<(firstThird)] // low range
-    let secondRange = playerGroup[firstThird..<(secondThird)] // medium range
-    let thirdRange = playerGroup[secondThird..<(thirdThird)] // high range
-    
-    /* EXPLANATION of the below
-        this code iterates through each height range, assigning lowest and highest heights to the same team
-        i is used to represent index, and assign each number in turn, computed count-1 prevents loop from going out of bounds
-     
-        process looks like this  [1,2,2] [3,4,5] [6,6,7]
-                                  ^       ^           ^    first group receives lowest and highest values
-                                    ^       ^       ^      second group receives next value (+1 index for 1st and 2nd group, -1 for 3rd)
-                                      ^       ^   ^        then third group
-     
-        resulting in these group assignments: (1,3,7) - average 3.6 (2,4,6) - average 4 (2,5,6) - average 4.3
-        these numbers have an average within a 1.5 range of each other
-        an unconventional approach, but based on what worked on paper, and it works with different number sets
-    */
-    
-    // distribute low height range across teams, using logic explained above
-    for _ in 1..<firstRange.count-1 {
-        var i = 0
-        teamSharks.append(firstRange[i])
-        i += 1
-        teamDragons.append(firstRange[i])
-        i += 1
-        teamRaptors.append(firstRange[i])
-        i += 1
+    while mutableGroup.isEmpty == false {
+        for i in 0..<mutableTeams.count { // iterate through array of teams to assign players in sequence
+            mutableTeams[i].append(mutableGroup[0]) // assign value from array
+            mutableGroup.remove(at: 0) // then remove value
+        }
     }
     
-    // distribute medium height range across teams, using logic explained above
-    for _ in 1..<secondRange.count-1 {
-        var i = thirds
-        teamSharks.append(secondRange[i])
-        i += 1
-        teamDragons.append(secondRange[i])
-        i += 1
-        teamRaptors.append(secondRange[i])
-        i += 1
-    }
-
-    // distribute high height range across teams, using logic explained above
-    for _ in 1..<thirdRange.count-1 {
-        var i = thirdRange.count*thirds - 1 // this is used to start counting from the last index value
-        teamSharks.append(thirdRange[i])
-        i -= 1
-        teamDragons.append(thirdRange[i])
-        i -= 1
-        teamRaptors.append(thirdRange[i])
-        i -= 1
-    }
+    teamSharks += mutableTeams[0]
+    teamDragons += mutableTeams[1]
+    teamRaptors += mutableTeams[2]
 }
 
 
 // call function to divide each group of players into teams
 
-dividePlayers(playerGroup: sortedInexperienced)
-dividePlayers(playerGroup: sortedExperienced)
+dividePlayers(playerGroup: sortedInexperienced, teams: leagueTeams)
+dividePlayers(playerGroup: sortedExperienced, teams: leagueTeams)
 
 
 // function to compute average height per team
-func averageHeight(for team: [[String: Any]]) -> Double {
+func averageHeight(for team: [[String: String]]) -> Double {
     var totalHeight: Double = 0
     
     for player in team {
-        if let playerHeight = player[height] as? Double {
-        totalHeight += playerHeight // add all player heights together
+        if let playerHeight = player[height], let doublePlayerHeight = Double(playerHeight) {
+        totalHeight += doublePlayerHeight // add all player heights together
         }
     }
     
@@ -262,6 +217,7 @@ func averageHeight(for team: [[String: Any]]) -> Double {
     let averageHeight = totalHeight / teamCount // divide total height by number of players
     return averageHeight
 }
+
 
 // call functions for average team height and assign to variables
 let teamRaptorsAverageHeight = averageHeight(for: teamRaptors)
@@ -277,7 +233,7 @@ var letters: [String] = [] // empty array to hold letters
 
 
 // reusable function to generate letters with team and date inputs
-func createLetters(team: [[String: Any]], teamName: String, practiceDate: String) {
+func createLetters(team: [[String: String]], teamName: String, practiceDate: String) {
     
     for player in team {
         if let playerGuardian = player[guardians], let playerName = player[name] {
@@ -298,6 +254,5 @@ createLetters(team: teamSharks, teamName: "Sharks", practiceDate: "March 17, 3pm
 for letter in letters {
     print(letter)
 }
-
 
 
