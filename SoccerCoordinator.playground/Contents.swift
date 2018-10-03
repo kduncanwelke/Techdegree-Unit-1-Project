@@ -130,6 +130,7 @@ let players: [[String: String]] = [
         experience: "true",
         guardians: "Hyman and Rachel Krustofski"
     ]
+ 
 ]
 
 
@@ -188,9 +189,13 @@ func dividePlayers(playerGroup: [[String: String]], teams: [[[String: String]]])
     var mutableGroup = playerGroup // copy let from loop to variable
     
     while mutableGroup.isEmpty == false { // proceed while playerGroup isn't empty
-        for i in 0..<mutableTeams.count { // iterate through array of teams to assign players in sequence
-            mutableTeams[i].append(mutableGroup[0]) // assign value to team from playerGroup array
-            mutableGroup.remove(at: 0) // then remove value from playerGroup
+        for team in 0..<mutableTeams.count { // iterate through array of teams to assign players in sequence
+            if mutableGroup.count == 0 {
+                break // break out of loop if all playerGroup members have been assigned (prevents out of range error)
+            } else {
+                mutableTeams[team].append(mutableGroup[0]) // assign value to team from playerGroup array
+                mutableGroup.remove(at: 0) // then remove value from playerGroup
+            }
         }
     }
     
