@@ -130,7 +130,7 @@ let players: [[String: String]] = [
         experience: "true",
         guardians: "Hyman and Rachel Krustofski"
     ]
- 
+
 ]
 
 
